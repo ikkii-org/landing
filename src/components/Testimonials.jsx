@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
+import { useState } from 'react'
 
 const testimonials = [
     {
@@ -29,7 +30,7 @@ const testimonials = [
         rank: '#19 Global',
         game: 'Valorant',
         avatar: 'X',
-        color: '#A78BFA',
+        color: '#8B5CF6',
         wins: 67,
         amount: '5.1 SOL',
     },
@@ -47,7 +48,7 @@ export default function Testimonials() {
 
     return (
         <section id="testimonials" className="section" ref={ref} style={{ background: 'linear-gradient(to bottom, var(--bg0), var(--bg2) 50%, var(--bg0))' }}>
-            <div className="glow-orb" style={{ width: 600, height: 400, background: 'radial-gradient(ellipse, rgba(139,92,246,0.1) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} />
+            <div className="glow-orb" style={{ width: 600, height: 400, background: 'radial-gradient(ellipse, rgba(139,92,246,0.07) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)' }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <motion.div
@@ -66,64 +67,62 @@ export default function Testimonials() {
                     transition={{ delay: 0.2, duration: 0.6 }}
                     style={{ maxWidth: 760, margin: '0 auto' }}
                 >
-                    {/* Big quote card */}
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={active}
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                            className="testimonial-card"
-                            style={{
-                                background: 'var(--bg3)',
-                                border: '1px solid rgba(139,92,246,0.3)',
-                                borderRadius: 24,
-                                position: 'relative',
-                                boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(139,92,246,0.1)',
-                                marginBottom: 24,
-                            }}
-                        >
-                            {/* Quote mark */}
-                            <div style={{ position: 'absolute', top: 28, left: 40, fontSize: 72, lineHeight: 1, color: 'rgba(139,92,246,0.15)', fontFamily: 'Georgia, serif', fontWeight: 700, userSelect: 'none' }}>"</div>
+                    {/* Quote card */}
+                    <div
+                        key={active}
+                        className="testimonial-card"
+                        style={{
+                            background: 'var(--bg3)',
+                            border: `1px solid ${t.color}44`,
+                            borderRadius: 24,
+                            position: 'relative',
+                            overflow: 'hidden',
+                            boxShadow: 'var(--shadow-lg)',
+                            marginBottom: 24,
+                        }}
+                    >
+                        {/* Top accent */}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${t.color}, transparent)` }} />
 
-                            {/* Stars */}
-                            <div style={{ display: 'flex', gap: 4, marginBottom: 24 }}>
-                                {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#F59E0B" color="#F59E0B" />)}
-                            </div>
+                        {/* Quote mark */}
+                        <div style={{ position: 'absolute', top: 28, left: 40, fontSize: 72, lineHeight: 1, color: 'var(--border-light)', fontFamily: 'Georgia, serif', fontWeight: 700, userSelect: 'none' }}>"</div>
 
-                            <p style={{ fontSize: 19, color: '#E2E8F0', lineHeight: 1.75, fontStyle: 'italic', marginBottom: 32, position: 'relative', zIndex: 1 }}>
-                                "{t.text}"
-                            </p>
+                        {/* Stars */}
+                        <div style={{ display: 'flex', gap: 4, marginBottom: 24 }}>
+                            {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="#F59E0B" color="#F59E0B" />)}
+                        </div>
 
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-                                    <div style={{
-                                        width: 48, height: 48, borderRadius: 14,
-                                        background: `linear-gradient(135deg, ${t.color}33, ${t.color}11)`,
-                                        border: `1px solid ${t.color}44`,
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 20, color: t.color,
-                                    }}>{t.avatar}</div>
-                                    <div>
-                                        <div style={{ fontSize: 16, fontWeight: 700, color: '#F1F5F9' }}>{t.name}</div>
-                                        <div style={{ fontSize: 13, color: t.color, fontWeight: 600 }}>{t.rank} · {t.game}</div>
-                                    </div>
-                                </div>
-                                <div style={{ display: 'flex', gap: 16 }}>
-                                    <div style={{ textAlign: 'center' }}>
-                                        <div style={{ fontSize: 18, fontWeight: 700, color: '#10B981' }}>{t.wins}</div>
-                                        <div style={{ fontSize: 11, color: '#64748B' }}>Wins</div>
-                                    </div>
-                                    <div style={{ width: 1, background: '#1E1E35' }} />
-                                    <div style={{ textAlign: 'center' }}>
-                                        <div style={{ fontSize: 18, fontWeight: 700, color: '#A78BFA' }}>{t.amount}</div>
-                                        <div style={{ fontSize: 11, color: '#64748B' }}>Won</div>
-                                    </div>
+                        <p style={{ fontSize: 18, color: 'var(--text1)', lineHeight: 1.75, fontStyle: 'italic', marginBottom: 32, position: 'relative', zIndex: 1 }}>
+                            "{t.text}"
+                        </p>
+
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                                <div style={{
+                                    width: 48, height: 48, borderRadius: 14,
+                                    background: `${t.color}18`,
+                                    border: `1px solid ${t.color}44`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 20, color: t.color,
+                                }}>{t.avatar}</div>
+                                <div>
+                                    <div style={{ fontSize: 16, fontWeight: 700, color: 'var(--text1)' }}>{t.name}</div>
+                                    <div style={{ fontSize: 13, color: t.color, fontWeight: 600 }}>{t.rank} · {t.game}</div>
                                 </div>
                             </div>
-                        </motion.div>
-                    </AnimatePresence>
+                            <div style={{ display: 'flex', gap: 16 }}>
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--green)' }}>{t.wins}</div>
+                                    <div style={{ fontSize: 11, color: 'var(--text3)' }}>Wins</div>
+                                </div>
+                                <div style={{ width: 1, background: 'var(--border)' }} />
+                                <div style={{ textAlign: 'center' }}>
+                                    <div style={{ fontSize: 18, fontWeight: 700, color: 'var(--purple-light)' }}>{t.amount}</div>
+                                    <div style={{ fontSize: 11, color: 'var(--text3)' }}>Won</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     {/* Navigation */}
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
@@ -138,7 +137,7 @@ export default function Testimonials() {
                                     style={{
                                         width: i === active ? 24 : 8, height: 8,
                                         borderRadius: 4, border: 'none', cursor: 'pointer',
-                                        background: i === active ? 'var(--purple)' : 'var(--bg5)',
+                                        background: i === active ? 'var(--purple)' : 'var(--border-light)',
                                         transition: 'all 0.3s',
                                     }}
                                 />
@@ -153,7 +152,7 @@ export default function Testimonials() {
             <style>{`
                 .testimonial-card { padding: 48px 48px 40px; }
                 @media (max-width: 640px) {
-                    .testimonial-card { padding: 28px 22px 24px; border-radius: 18px; }
+                    .testimonial-card { padding: 28px 22px 24px; border-radius: 18px !important; }
                 }
                 @media (max-width: 400px) {
                     .testimonial-card { padding: 22px 16px 20px; }

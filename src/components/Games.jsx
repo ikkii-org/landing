@@ -6,8 +6,9 @@ const games = [
     {
         name: 'Clash Royale',
         abbr: 'CR',
-        color: '#A78BFA',
-        glow: 'rgba(167,139,250,0.3)',
+        icon: 'https://cdn-assets-eu.frontify.com/s3/frontify-enterprise-files-eu/eyJwYXRoIjoic3VwZXJjZWxsXC9maWxlXC80SEQzUWJTN0g3VnJkUE1ENVp2eC5wbmcifQ:supercell:m3Kilkm5YQ79_Njnrsso7xomOdmXqQlrAZPacydXARM?width=180',
+        color: '#8B5CF6',
+        glow: 'rgba(139,92,246,0.15)',
         players: '100M+',
         desc: 'Live 1v1 duels · Trophy matchmaking · Results auto-verified via API',
         status: 'live',
@@ -15,8 +16,9 @@ const games = [
     {
         name: 'Valorant',
         abbr: 'VL',
+        icon: '/valorant.svg',
         color: '#FF4655',
-        glow: 'rgba(255,70,85,0.15)',
+        glow: 'rgba(255,70,85,0.1)',
         players: '14.5M',
         desc: 'Tactical 5v5 shooter · Official match API integration in progress',
         status: 'soon',
@@ -24,8 +26,9 @@ const games = [
     {
         name: 'CS2',
         abbr: 'CS',
+        icon: '/cs2.svg',
         color: '#F0A500',
-        glow: 'rgba(240,165,0,0.15)',
+        glow: 'rgba(240,165,0,0.1)',
         players: '32M',
         desc: 'Premier ranked verification · Anti-cheat sync',
         status: 'soon',
@@ -33,8 +36,9 @@ const games = [
     {
         name: 'Apex Legends',
         abbr: 'AL',
+        icon: '/apex.svg',
         color: '#CD2626',
-        glow: 'rgba(205,38,38,0.15)',
+        glow: 'rgba(205,38,38,0.1)',
         players: '130M',
         desc: 'Battle royale kill-count wagers · Coming Q4',
         status: 'soon',
@@ -60,9 +64,8 @@ export default function Games() {
 
     return (
         <section id="games" className="section" ref={ref} style={{ position: 'relative', overflow: 'hidden' }}>
-            {/* Background Orbs */}
-            <div className="glow-orb" style={{ width: 600, height: 600, background: 'radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%)', top: '10%', left: '-10%' }} />
-            <div className="glow-orb" style={{ width: 500, height: 500, background: 'radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%)', bottom: '0%', right: '-5%' }} />
+            <div className="glow-orb" style={{ width: 600, height: 600, background: 'radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%)', top: '10%', left: '-10%' }} />
+            <div className="glow-orb" style={{ width: 500, height: 500, background: 'radial-gradient(circle, rgba(6,182,212,0.05) 0%, transparent 70%)', bottom: '0%', right: '-5%' }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
 
@@ -72,7 +75,7 @@ export default function Games() {
                     transition={{ duration: 0.6 }}
                     style={{ textAlign: 'center', marginBottom: 64 }}
                 >
-                    <div className="section-tag" style={{ background: 'rgba(167,139,250,0.1)', color: '#A78BFA', border: '1px solid rgba(167,139,250,0.2)' }}>Supported Games</div>
+                    <div className="section-tag">Supported Games</div>
                     <h2 className="section-title">Your game.<br /><span className="grad">Your wager.</span></h2>
                     <p className="section-sub" style={{ margin: '16px auto 0', textAlign: 'center', maxWidth: 640 }}>
                         We integrate directly with official game APIs. No screenshots, no trust required. The smart contract talks to the game server.
@@ -81,73 +84,79 @@ export default function Games() {
 
                 <div style={{ maxWidth: 1080, margin: '0 auto' }}>
 
-                    {/* ── Live Hero Game Card ── */}
+                    {/* Live game hero card */}
                     <motion.div
                         initial={{ opacity: 0, y: 40 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
-                        whileHover={{ y: -4, boxShadow: `0 40px 80px rgba(0,0,0,0.6), 0 0 50px ${liveGame.glow}`, borderColor: 'rgba(167,139,250,0.4)' }}
+                        whileHover={{
+                            y: -4,
+                            borderColor: `${liveGame.color}60`,
+                            boxShadow: `var(--shadow-lg), 0 0 50px ${liveGame.glow}`
+                        }}
                         style={{
-                            background: 'linear-gradient(135deg, rgba(20,20,35,0.95) 0%, rgba(10,10,20,0.98) 100%)',
-                            border: '1px solid rgba(167,139,250,0.2)',
+                            background: 'var(--bg3)',
+                            border: '1px solid var(--border)',
                             borderRadius: 32,
                             padding: '40px 48px',
                             marginBottom: 24,
                             cursor: 'default',
                             position: 'relative',
                             overflow: 'hidden',
-                            backdropFilter: 'blur(20px)',
-                            display: 'flex', gap: 40, alignItems: 'center'
+                            display: 'flex', gap: 40, alignItems: 'center',
+                            boxShadow: 'var(--shadow-md)',
+                            transition: 'box-shadow 0.3s, border-color 0.3s, transform 0.3s',
                         }}
                         className="live-game-card"
                     >
-                        {/* Background glowing blob */}
+                        {/* Top accent */}
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${liveGame.color}, transparent)` }} />
                         <div style={{ position: 'absolute', top: '-20%', left: '-10%', width: 300, height: 300, background: `radial-gradient(circle, ${liveGame.glow}, transparent 70%)`, pointerEvents: 'none' }} />
 
-                        {/* Graphic Icon Area */}
+                        {/* Large icon */}
                         <div style={{ flexShrink: 0, position: 'relative' }}>
                             <div style={{
                                 width: 120, height: 120, borderRadius: 28,
-                                background: `linear-gradient(135deg, ${liveGame.color}20, transparent)`,
-                                border: `1px solid ${liveGame.color}40`,
+                                background: `linear-gradient(135deg, ${liveGame.color}15, ${liveGame.color}05)`,
+                                border: `1px solid ${liveGame.color}30`,
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.1)',
                                 position: 'relative', zIndex: 1
                             }}>
-                                <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 36, fontWeight: 900, color: liveGame.color, letterSpacing: -1 }}>{liveGame.abbr}</span>
+                                {liveGame.icon
+                                    ? <img src={liveGame.icon} alt={liveGame.name} style={{ width: 84, height: 84, objectFit: 'contain', borderRadius: 20 }} />
+                                    : <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 36, fontWeight: 900, color: liveGame.color, letterSpacing: -1 }}>{liveGame.abbr}</span>
+                                }
                             </div>
-                            {/* Floating elements */}
                             <motion.div animate={{ y: [-5, 5, -5], rotate: [0, 5, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }} style={{ position: 'absolute', top: -15, right: -15, width: 40, height: 40, background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                <Sword size={18} color="#10B981" />
+                                <Sword size={18} color="var(--green)" />
                             </motion.div>
                         </div>
 
-                        {/* Content Area */}
+                        {/* Content */}
                         <div style={{ flex: 1, position: 'relative', zIndex: 1 }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
-                                <h3 style={{ fontSize: 32, fontWeight: 800, color: '#F1F5F9', fontFamily: 'Space Grotesk, sans-serif', letterSpacing: -0.5 }}>{liveGame.name}</h3>
+                                <h3 style={{ fontSize: 32, fontWeight: 800, color: 'var(--text1)', fontFamily: 'Space Grotesk, sans-serif', letterSpacing: -0.5 }}>{liveGame.name}</h3>
                                 <div style={{
                                     display: 'flex', alignItems: 'center', gap: 6, padding: '4px 12px', borderRadius: 999,
-                                    background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.4)',
+                                    background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.35)',
                                 }}>
-                                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#10B981', boxShadow: '0 0 10px #10B981' }} />
-                                    <span style={{ fontSize: 11, fontWeight: 800, color: '#10B981', textTransform: 'uppercase', letterSpacing: 1 }}>Live Now</span>
+                                    <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 10px var(--green)' }} />
+                                    <span style={{ fontSize: 11, fontWeight: 800, color: 'var(--green)', textTransform: 'uppercase', letterSpacing: 1 }}>Live Now</span>
                                 </div>
                             </div>
-                            <p style={{ fontSize: 16, color: '#94A3B8', lineHeight: 1.6, marginBottom: 24, maxWidth: 500 }}>
+                            <p style={{ fontSize: 16, color: 'var(--text2)', lineHeight: 1.6, marginBottom: 24, maxWidth: 500 }}>
                                 {liveGame.desc}
                             </p>
 
-                            {/* Stats row */}
                             <div style={{ display: 'flex', gap: 24 }}>
                                 <div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Player Base</div>
-                                    <div style={{ fontSize: 22, fontWeight: 700, color: '#F1F5F9', fontFamily: 'Space Grotesk, sans-serif' }}>{liveGame.players}</div>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Player Base</div>
+                                    <div style={{ fontSize: 22, fontWeight: 700, color: 'var(--text1)', fontFamily: 'Space Grotesk, sans-serif' }}>{liveGame.players}</div>
                                 </div>
-                                <div style={{ width: 1, background: 'rgba(255,255,255,0.1)' }} />
+                                <div style={{ width: 1, background: 'var(--border)' }} />
                                 <div>
-                                    <div style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Match Data</div>
-                                    <div style={{ fontSize: 15, fontWeight: 700, color: '#10B981', display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
+                                    <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text3)', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 4 }}>Match Data</div>
+                                    <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--green)', display: 'flex', alignItems: 'center', gap: 6, marginTop: 4 }}>
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><path d="M22 4L12 14.01l-3-3" /></svg>
                                         Official API
                                     </div>
@@ -156,7 +165,7 @@ export default function Games() {
                         </div>
                     </motion.div>
 
-                    {/* ── Upcoming Games Grid ── */}
+                    {/* Upcoming games grid */}
                     <motion.div
                         variants={containerVariants}
                         initial="hidden"
@@ -167,16 +176,18 @@ export default function Games() {
                         {upcomingGames.map((g) => (
                             <motion.div key={g.name} variants={cardVariants}>
                                 <motion.div
-                                    whileHover={{ y: -4, borderColor: 'rgba(255,255,255,0.15)' }}
+                                    whileHover={{ y: -4, borderColor: 'var(--border-light)' }}
                                     style={{
-                                        background: 'rgba(15,15,25,0.6)',
-                                        border: '1px solid rgba(255,255,255,0.05)',
+                                        background: 'var(--bg3)',
+                                        border: '1px solid var(--border)',
                                         borderRadius: 24,
                                         padding: '24px 28px',
                                         position: 'relative',
                                         overflow: 'hidden',
                                         height: '100%',
                                         display: 'flex', flexDirection: 'column',
+                                        boxShadow: 'var(--shadow-sm)',
+                                        transition: 'box-shadow 0.3s, border-color 0.3s, transform 0.3s',
                                     }}
                                 >
                                     <div style={{ position: 'absolute', top: 0, right: 0, width: 100, height: 100, background: `radial-gradient(circle at top right, ${g.glow}, transparent 70%)` }} />
@@ -184,30 +195,34 @@ export default function Games() {
                                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                                         <div style={{
                                             width: 44, height: 44, borderRadius: 12,
-                                            background: `linear-gradient(135deg, ${g.color}15, transparent)`,
-                                            border: `1px solid ${g.color}30`,
+                                            background: `${g.color}12`,
+                                            border: `1px solid ${g.color}25`,
                                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                                             fontFamily: 'Space Grotesk, sans-serif', fontWeight: 700, fontSize: 14, color: g.color,
+                                            overflow: 'hidden',
                                         }}>
-                                            {g.abbr}
+                                            {g.icon
+                                                ? <img src={g.icon} alt={g.name} style={{ width: 36, height: 36, objectFit: 'contain' }} />
+                                                : g.abbr
+                                            }
                                         </div>
                                         <div style={{
                                             fontSize: 9, fontWeight: 700, letterSpacing: 1, textTransform: 'uppercase',
                                             padding: '4px 10px', borderRadius: 999,
-                                            background: 'rgba(100,116,139,0.1)',
-                                            border: `1px solid rgba(100,116,139,0.2)`,
-                                            color: '#94A3B8',
+                                            background: 'var(--bg4)',
+                                            border: '1px solid var(--border)',
+                                            color: 'var(--text3)',
                                         }}>
                                             Coming Soon
                                         </div>
                                     </div>
 
-                                    <h4 style={{ fontSize: 18, fontWeight: 700, color: '#F1F5F9', marginBottom: 8, fontFamily: 'Space Grotesk, sans-serif' }}>{g.name}</h4>
-                                    <p style={{ fontSize: 13, color: '#64748B', lineHeight: 1.6, flex: 1 }}>{g.desc}</p>
+                                    <h4 style={{ fontSize: 18, fontWeight: 700, color: 'var(--text1)', marginBottom: 8, fontFamily: 'Space Grotesk, sans-serif' }}>{g.name}</h4>
+                                    <p style={{ fontSize: 13, color: 'var(--text3)', lineHeight: 1.6, flex: 1 }}>{g.desc}</p>
 
-                                    <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                        <span style={{ fontSize: 11, color: '#475569', fontWeight: 600 }}>Player Base</span>
-                                        <span style={{ fontSize: 13, fontWeight: 700, color: '#E2E8F0' }}>{g.players}</span>
+                                    <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                        <span style={{ fontSize: 11, color: 'var(--text3)', fontWeight: 600 }}>Player Base</span>
+                                        <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--text1)' }}>{g.players}</span>
                                     </div>
                                 </motion.div>
                             </motion.div>
@@ -220,11 +235,6 @@ export default function Games() {
             <style>{`
                 @media (max-width: 900px) {
                     .live-game-card { flex-direction: column !important; text-align: center; gap: 24px !important; padding: 32px 24px !important; }
-                    .live-game-card > div:nth-child(2) { margin: 0 auto; }
-                    .live-game-card h3 { justify-content: center; }
-                    .live-game-card > div:nth-child(3) > div:first-child { flex-direction: column; }
-                    .live-game-card .stats-row { justify-content: center; }
-                    
                     .upcoming-games-grid { grid-template-columns: repeat(2, 1fr) !important; }
                 }
                 @media (max-width: 600px) {

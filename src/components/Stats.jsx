@@ -39,8 +39,8 @@ export default function Stats() {
     const inView = useInView(ref, { once: true, margin: '-80px' })
 
     return (
-        <section ref={ref} style={{ padding: '80px 0', background: 'linear-gradient(to bottom, rgba(139,92,246,0.04), transparent)' }}>
-            <div style={{ position: 'absolute', inset: 0, borderTop: '1px solid rgba(139,92,246,0.1)', borderBottom: '1px solid rgba(139,92,246,0.1)', pointerEvents: 'none' }} />
+        <section ref={ref} style={{ padding: '80px 0', position: 'relative', background: 'linear-gradient(to bottom, rgba(124,58,237,0.04), transparent)' }}>
+            <div style={{ position: 'absolute', inset: 0, borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', pointerEvents: 'none' }} />
             <div className="container">
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }} className="stats-grid">
                     {/* Dividers */}
@@ -52,7 +52,7 @@ export default function Stats() {
                             transition={{ delay: i * 0.1, duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                             style={{
                                 textAlign: 'center', padding: '20px 16px',
-                                borderRight: i < stats.length - 1 ? '1px solid rgba(30,30,53,0.8)' : 'none',
+                                borderRight: i < stats.length - 1 ? '1px solid var(--border)' : 'none',
                             }}
                         >
                             <div style={{
@@ -66,8 +66,8 @@ export default function Stats() {
                             }}>
                                 <CountUp to={s.value} suffix={s.suffix} prefix={s.prefix} inView={inView} />
                             </div>
-                            <div style={{ fontSize: 15, fontWeight: 700, color: '#F1F5F9', marginBottom: 4 }}>{s.label}</div>
-                            <div style={{ fontSize: 13, color: '#64748B' }}>{s.desc}</div>
+                            <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--text1)', marginBottom: 4 }}>{s.label}</div>
+                            <div style={{ fontSize: 13, color: 'var(--text3)' }}>{s.desc}</div>
                         </motion.div>
                     ))}
                 </div>
@@ -77,7 +77,7 @@ export default function Stats() {
         @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr) !important; } }
         @media (max-width: 480px) { .stats-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 640px) {
-            .stats-grid > div { border-right: none !important; border-bottom: 1px solid rgba(30,30,53,0.8); padding: 18px 0 !important; }
+            .stats-grid > div { border-right: none !important; border-bottom: 1px solid var(--border); padding: 18px 0 !important; }
             .stats-grid > div:last-child { border-bottom: none; }
         }
       `}</style>

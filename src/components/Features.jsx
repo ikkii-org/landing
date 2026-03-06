@@ -6,32 +6,26 @@ const features = [
     {
         id: 'escrow',
         icon: <Shield size={22} />,
-        color: '#A78BFA',
-        glow: 'rgba(167,139,250,0.25)',
+        color: '#8B5CF6',
+        glow: 'rgba(139,92,246,0.1)',
         title: 'Trustless Escrow',
         body: "Anchor smart contracts hold stakes in PDA-owned token accounts. No admin, no platform — nobody touches your funds.",
-        gridArea: '1 / 1 / 2 / 3',   // row 1, col 1–2
+        gridArea: '1 / 1 / 2 / 3',
         size: 'wide',
-        bg: (
-            <div style={{ position: 'absolute', right: 0, bottom: 0, width: '50%', height: '100%', pointerEvents: 'none' }}>
-                <div style={{ position: 'absolute', right: 20, bottom: 20, width: 140, height: 140, border: '1px solid rgba(167,139,250,0.2)', borderRadius: 24, transform: 'rotate(-15deg)' }} />
-                <div style={{ position: 'absolute', right: 40, bottom: 10, width: 120, height: 120, background: 'linear-gradient(135deg, rgba(167,139,250,0.1), transparent)', borderRadius: 20, transform: 'rotate(5deg)' }} />
-            </div>
-        )
     },
     {
         id: 'settlement',
         icon: <Zap size={22} />,
         color: '#06B6D4',
-        glow: 'rgba(6,182,212,0.25)',
+        glow: 'rgba(6,182,212,0.1)',
         title: 'Instant Settlement',
         body: "Solana's 400ms finality means your winnings land instantly.",
-        gridArea: '1 / 3 / 3 / 4',   // rows 1–2, col 3
+        gridArea: '1 / 3 / 3 / 4',
         size: 'tall',
         extra: (
             <div style={{
                 marginTop: 'auto', padding: '16px 20px',
-                background: 'linear-gradient(to right, rgba(6,182,212,0.1), rgba(6,182,212,0.02))',
+                background: 'rgba(6,182,212,0.08)',
                 border: '1px solid rgba(6,182,212,0.2)',
                 borderRadius: 14, fontSize: 13, color: '#06B6D4', fontWeight: 600,
                 display: 'flex', alignItems: 'center', gap: 8,
@@ -39,7 +33,7 @@ const features = [
                 <span style={{ fontSize: 20 }}>⚡</span>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                     <span>400ms finality</span>
-                    <span style={{ fontSize: 11, color: 'rgba(6,182,212,0.7)' }}>$0.001 per tx</span>
+                    <span style={{ fontSize: 11, color: 'rgba(6,182,212,0.65)' }}>$0.001 per tx</span>
                 </div>
             </div>
         ),
@@ -48,64 +42,41 @@ const features = [
         id: 'rankings',
         icon: <Trophy size={22} />,
         color: '#F59E0B',
-        glow: 'rgba(245,158,11,0.25)',
+        glow: 'rgba(245,158,11,0.1)',
         title: 'On-Chain Rankings',
         body: "Every win is recorded on-chain. Real skill, no sandbagging.",
-        gridArea: '2 / 1 / 3 / 2',   // row 2, col 1
+        gridArea: '2 / 1 / 3 / 2',
         size: 'small',
     },
     {
         id: 'dispute',
         icon: <Puzzle size={22} />,
         color: '#10B981',
-        glow: 'rgba(16,185,129,0.25)',
+        glow: 'rgba(16,185,129,0.1)',
         title: 'Auto Dispute',
         body: "Oracle cross-references in-game APIs to settle disputes.",
-        gridArea: '2 / 2 / 3 / 3',   // row 2, col 2
+        gridArea: '2 / 2 / 3 / 3',
         size: 'small',
     },
     {
         id: 'tokens',
         icon: <Coins size={22} />,
         color: '#EC4899',
-        glow: 'rgba(236,72,153,0.25)',
+        glow: 'rgba(236,72,153,0.1)',
         title: 'Multi-Token',
         body: "Stake in SOL, USDC, or any SPL token. NFT wagering next.",
-        gridArea: '3 / 1 / 4 / 2',   // row 3, col 1
+        gridArea: '3 / 1 / 4 / 2',
         size: 'small',
     },
     {
         id: 'permissionless',
         icon: <Globe size={22} />,
         color: '#8B5CF6',
-        glow: 'rgba(139,92,246,0.25)',
+        glow: 'rgba(139,92,246,0.1)',
         title: 'Truly Permissionless',
         body: "No geo-restrictions. No KYC. Any wallet, anywhere. Ikkii works for all 3.3 billion gamers globally.",
-        gridArea: '3 / 2 / 4 / 4',   // row 3, col 2–3
+        gridArea: '3 / 2 / 4 / 4',
         size: 'wide',
-        bg: (
-            <div style={{ position: 'absolute', right: 0, bottom: 0, width: '40%', height: '100%', pointerEvents: 'none', background: 'radial-gradient(circle at right, rgba(139,92,246,0.1), transparent 70%)' }} />
-        ),
-        extra: (
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 24 }}>
-                {['🌏 Asia', '🌍 Africa', '🌎 Americas', '🇪🇺 Europe'].map((r, i) => (
-                    <motion.span
-                        key={r}
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.5 + i * 0.1 }}
-                        style={{
-                            fontSize: 12, padding: '6px 14px', borderRadius: 999,
-                            background: 'rgba(139,92,246,0.1)', border: '1px solid rgba(139,92,246,0.25)',
-                            color: '#A78BFA', fontWeight: 600,
-                        }}
-                    >
-                        {r}
-                    </motion.span>
-                ))}
-            </div>
-        ),
     },
 ]
 
@@ -122,12 +93,9 @@ export default function Features() {
     const inView = useInView(ref, { once: true, margin: '-80px' })
 
     return (
-        <section id="features" className="section" ref={ref}
-            style={{ position: 'relative', overflow: 'hidden' }}
-        >
-            {/* Background Gradients */}
+        <section id="features" className="section" ref={ref} style={{ position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, var(--bg0), var(--bg2) 40%, var(--bg0))', zIndex: 0 }} />
-            <div className="glow-orb" style={{ width: 800, height: 500, background: 'radial-gradient(ellipse, rgba(139,92,246,0.08) 0%, transparent 60%)', top: '20%', left: '50%', transform: 'translateX(-50%)', zIndex: 0 }} />
+            <div className="glow-orb" style={{ width: 800, height: 500, background: 'radial-gradient(ellipse, rgba(139,92,246,0.06) 0%, transparent 60%)', top: '20%', left: '50%', transform: 'translateX(-50%)', zIndex: 0 }} />
 
             <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                 <motion.div
@@ -136,18 +104,16 @@ export default function Features() {
                     transition={{ duration: 0.6 }}
                     style={{ textAlign: 'center', marginBottom: 72 }}
                 >
-                    <div className="section-tag" style={{ background: 'rgba(139,92,246,0.1)', color: '#A78BFA', border: '1px solid rgba(139,92,246,0.2)' }}>Features</div>
+                    <div className="section-tag">Features</div>
                     <h2 className="section-title">Built different.<br /><span className="grad">Not just a dApp.</span></h2>
                     <p className="section-sub" style={{ margin: '16px auto 0', textAlign: 'center', maxWidth: 500 }}>
                         Every feature exists to give players a fair, fast, fully on-chain experience.
                     </p>
                 </motion.div>
 
-                {/* ── Bento Grid ── */}
                 <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',
-                    gridTemplateRows: 'auto',
                     gap: 20,
                     maxWidth: 1080,
                     margin: '0 auto'
@@ -160,24 +126,19 @@ export default function Features() {
                             initial="hidden"
                             animate={inView ? 'visible' : 'hidden'}
                             className="bento-item"
-                            style={{
-                                gridArea: f.gridArea,
-                                position: 'relative',
-                                display: 'flex',
-                                flexDirection: 'column'
-                            }}
+                            style={{ gridArea: f.gridArea, display: 'flex', flexDirection: 'column' }}
                         >
                             <motion.div
                                 whileHover={{
                                     y: -6,
-                                    borderColor: `${f.color}80`,
-                                    boxShadow: `0 30px 60px rgba(0,0,0,0.5), 0 0 40px ${f.glow}`,
+                                    borderColor: `${f.color}60`,
+                                    boxShadow: `var(--shadow-lg), 0 0 40px ${f.glow.replace('0.1)', '0.25)')}`,
                                 }}
                                 transition={{ duration: 0.3, ease: 'easeOut' }}
                                 style={{
                                     flex: 1,
-                                    background: 'linear-gradient(145deg, rgba(20,20,35,0.9) 0%, rgba(13,14,26,0.95) 100%)',
-                                    border: '1px solid rgba(255,255,255,0.06)',
+                                    background: 'var(--bg3)',
+                                    border: '1px solid var(--border)',
                                     borderRadius: 24,
                                     padding: f.size === 'wide' ? '36px 40px' : '32px',
                                     display: 'flex',
@@ -186,27 +147,27 @@ export default function Features() {
                                     overflow: 'hidden',
                                     cursor: 'default',
                                     minHeight: f.size === 'tall' ? 320 : f.size === 'wide' ? 220 : 250,
-                                    backdropFilter: 'blur(20px)',
+                                    boxShadow: 'var(--shadow-sm)',
+                                    transition: 'box-shadow 0.3s, border-color 0.3s, transform 0.3s',
                                 }}
                             >
-                                {/* Decorative Graphic Backgrounds */}
-                                {f.bg && f.bg}
+                                {/* Top accent line */}
+                                <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 2, background: `linear-gradient(90deg, transparent, ${f.color}80, transparent)` }} />
 
-                                {/* Glow radial behind icon */}
+                                {/* Glow behind icon */}
                                 <div style={{
                                     position: 'absolute', top: 0, left: 0, width: 120, height: 120,
                                     background: `radial-gradient(circle at 30% 30%, ${f.glow}, transparent 70%)`,
                                     pointerEvents: 'none',
                                 }} />
 
-                                {/* Icon Box */}
+                                {/* Icon */}
                                 <div style={{
                                     width: 48, height: 48, borderRadius: 14, flexShrink: 0,
-                                    background: `linear-gradient(135deg, ${f.color}20, ${f.color}05)`,
-                                    border: `1px solid ${f.color}40`,
+                                    background: f.glow,
+                                    border: `1px solid ${f.color}30`,
                                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                                     marginBottom: 20, color: f.color,
-                                    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.1)`,
                                     position: 'relative', zIndex: 1
                                 }}>
                                     {f.icon}
@@ -216,13 +177,13 @@ export default function Features() {
                                     <h3 style={{
                                         fontFamily: 'Space Grotesk, sans-serif',
                                         fontSize: f.size === 'wide' ? 24 : 20,
-                                        fontWeight: 700, marginBottom: 12, color: '#F1F5F9', lineHeight: 1.2,
+                                        fontWeight: 700, marginBottom: 12, color: 'var(--text1)', lineHeight: 1.2,
                                         letterSpacing: -0.5
                                     }}>
                                         {f.title}
                                     </h3>
 
-                                    <p style={{ fontSize: 15, color: '#94A3B8', lineHeight: 1.6, flex: 1, maxWidth: f.size === 'wide' ? '65%' : '100%' }}>
+                                    <p style={{ fontSize: 15, color: 'var(--text2)', lineHeight: 1.6, flex: 1, maxWidth: f.size === 'wide' ? '65%' : '100%' }}>
                                         {f.body}
                                     </p>
 
@@ -238,17 +199,12 @@ export default function Features() {
 
             <style>{`
                 @media (max-width: 900px) {
-                    .bento-grid {
-                        grid-template-columns: repeat(2, 1fr) !important;
-                    }
+                    .bento-grid { grid-template-columns: repeat(2, 1fr) !important; }
                     .bento-item { grid-area: auto !important; }
                     .bento-item > div > div > p { max-width: 100% !important; }
                 }
                 @media (max-width: 560px) {
-                    .bento-grid {
-                        grid-template-columns: 1fr !important;
-                        gap: 16px !important;
-                    }
+                    .bento-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
                     .bento-item > div { padding: 28px !important; min-height: auto !important; }
                     .bento-item h3 { font-size: 20px !important; }
                 }

@@ -37,6 +37,21 @@ export default function Hero() {
 
             <motion.div style={{ y, opacity, width: '100%', position: 'relative', zIndex: 1 }}>
                 <div className="container">
+
+                    {/* ── IKKII × Solana banner ── */}
+                    <motion.div
+                        initial={{ opacity: 0, y: -16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        style={{ display: 'flex', justifyContent: 'center', paddingTop: 40, paddingBottom: 8 }}
+                    >
+                        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 20 }}>
+                            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 800, color: 'var(--text1)', letterSpacing: -1.5, lineHeight: 1 }}>IKKII</span>
+                            <span style={{ color: 'var(--text3)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 300, lineHeight: 1 }}>×</span>
+                            <img src="/sol.svg" alt="Solana" style={{ height: 'clamp(32px, 4.5vw, 50px)', width: 'auto' }} />
+                        </div>
+                    </motion.div>
+
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: '1fr 1fr',
@@ -111,7 +126,7 @@ export default function Hero() {
                                 initial={{ opacity: 0, y: 16 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.85, duration: 0.55 }}
-                                style={{ fontSize: 18, color: '#94A3B8', lineHeight: 1.7, marginBottom: 36, marginTop: 20, maxWidth: 480 }}
+                                style={{ fontSize: 18, color: 'var(--text2)', lineHeight: 1.7, marginBottom: 36, marginTop: 20, maxWidth: 480 }}
                             >
                                 Challenge any gamer to a 1v1 duel. Stake{' '}
                                 <span style={{ color: '#A78BFA', fontWeight: 600 }}>SOL or USDC</span>{' '}
@@ -146,7 +161,7 @@ export default function Hero() {
                                     { icon: <Zap size={14} />, text: '400ms Settlement' },
                                     { icon: <Trophy size={14} />, text: 'On-Chain Rankings' },
                                 ].map(({ icon, text }) => (
-                                    <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6, color: '#64748B', fontSize: 13, fontWeight: 500 }}>
+                                    <div key={text} style={{ display: 'flex', alignItems: 'center', gap: 6, color: 'var(--text3)', fontSize: 13, fontWeight: 500 }}>
                                         <span style={{ color: '#A78BFA' }}>{icon}</span>
                                         {text}
                                     </div>
@@ -170,7 +185,7 @@ export default function Hero() {
                 transition={{ delay: 1.8 }}
                 style={{ position: 'absolute', bottom: 32, left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6 }}
             >
-                <span style={{ fontSize: 10, color: '#475569', letterSpacing: 2, textTransform: 'uppercase', fontWeight: 600 }}>Scroll</span>
+                <span style={{ fontSize: 10, color: 'var(--text4)', letterSpacing: 2, textTransform: 'uppercase', fontWeight: 600 }}>Scroll</span>
                 <motion.div
                     animate={{ y: [0, 8, 0] }}
                     transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}

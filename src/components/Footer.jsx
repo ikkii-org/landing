@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Zap, Twitter, Github, Send } from 'lucide-react'
+import { Twitter, Github, Send } from 'lucide-react'
 
 const nav = {
     Product: ['How It Works', 'Features', 'Games', 'Leaderboard'],
@@ -17,18 +17,10 @@ export default function Footer() {
                 <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: 48, marginBottom: 64 }} className="footer-grid">
                     {/* Brand column */}
                     <div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 20 }}>
-                            <div style={{
-                                width: 34, height: 34, borderRadius: 10,
-                                background: 'linear-gradient(135deg, #6D28D9, #9945FF)',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                boxShadow: '0 0 16px rgba(139,92,246,0.4)'
-                            }}>
-                                <Zap size={18} color="#fff" fill="#fff" />
-                            </div>
-                            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 22, fontWeight: 700, color: '#F1F5F9', letterSpacing: -0.5 }}>IKKII</span>
+                        <div style={{ marginBottom: 20 }}>
+                            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 22, fontWeight: 800, color: 'var(--text1)', letterSpacing: -1 }}>IKKII</span>
                         </div>
-                        <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.7, maxWidth: 260, marginBottom: 24 }}>
+                        <p style={{ fontSize: 14, color: 'var(--text3)', lineHeight: 1.7, maxWidth: 260, marginBottom: 24 }}>
                             The trustless 1v1 competitive gaming platform on Solana. Wager, play, and win — permissionlessly.
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>
@@ -45,7 +37,7 @@ export default function Footer() {
                                         width: 36, height: 36, borderRadius: 10,
                                         background: 'var(--bg4)', border: '1px solid var(--border-light)',
                                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        color: '#64748B', textDecoration: 'none', transition: 'all 0.2s',
+                                        color: 'var(--text3)', textDecoration: 'none', transition: 'all 0.2s',
                                     }}
                                     aria-label={label}
                                 >
@@ -58,12 +50,12 @@ export default function Footer() {
                     {/* Nav columns */}
                     {Object.entries(nav).map(([cat, items]) => (
                         <div key={cat}>
-                            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: '#475569', textTransform: 'uppercase', marginBottom: 18 }}>{cat}</div>
+                            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: 'var(--text4)', textTransform: 'uppercase', marginBottom: 18 }}>{cat}</div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                 {items.map(item => (
-                                    <a key={item} href="#" style={{ fontSize: 14, color: '#64748B', textDecoration: 'none', transition: 'color 0.2s', lineHeight: 1 }}
-                                        onMouseEnter={e => e.target.style.color = '#A78BFA'}
-                                        onMouseLeave={e => e.target.style.color = '#64748B'}
+                                    <a key={item} href="#" style={{ fontSize: 14, color: 'var(--text3)', textDecoration: 'none', transition: 'color 0.2s', lineHeight: 1 }}
+                                        onMouseEnter={e => e.target.style.color = 'var(--primary)'}
+                                        onMouseLeave={e => e.target.style.color = 'var(--text3)'}
                                     >
                                         {item}
                                     </a>
@@ -75,14 +67,14 @@ export default function Footer() {
 
                 {/* Bottom row */}
                 <div style={{ borderTop: '1px solid var(--border)', paddingTop: 28, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-                    <p style={{ fontSize: 13, color: '#475569' }}>
+                    <p style={{ fontSize: 13, color: 'var(--text4)' }}>
                         © 2026 Ikkii. Built on{' '}
                         <span style={{ color: '#A78BFA', fontWeight: 600 }}>Solana</span>.
                         Not financial advice. Wager responsibly.
                     </p>
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                         <span style={{ width: 6, height: 6, borderRadius: 3, background: '#10B981', boxShadow: '0 0 6px #10B981', display: 'inline-block' }} />
-                        <span style={{ fontSize: 13, color: '#64748B' }}>Devnet Operational</span>
+                        <span style={{ fontSize: 13, color: 'var(--text3)' }}>Devnet Operational</span>
                     </div>
                 </div>
             </div>
