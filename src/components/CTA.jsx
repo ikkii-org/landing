@@ -82,14 +82,16 @@ export default function CTA() {
                             style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}
                         >
                             <motion.a
-                                href="#"
+                                href="https://expo.dev/artifacts/eas/9GhGiL5rtpcRg4SspeNp3p.apk"
                                 className="btn btn-primary"
                                 style={{ fontSize: 16, padding: '16px 36px' }}
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.97 }}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 <Smartphone size={18} />
-                                Download App
+                                Download Beta
                                 <ArrowRight size={16} />
                             </motion.a>
                             <motion.a
