@@ -2,10 +2,29 @@ import { motion } from 'framer-motion'
 import { Twitter, Github, Send } from 'lucide-react'
 
 const nav = {
-    Product: ['How It Works', 'Features', 'Games', 'Leaderboard'],
-    Company: ['About', 'Blog', 'Careers', 'Press Kit'],
-    Developers: ['Smart Contract', 'SDK Docs', 'API Reference', 'GitHub'],
-    Legal: ['Terms of Service', 'Privacy Policy', 'Cookie Policy'],
+    Product: [
+        { name: 'How It Works', href: '#' },
+        { name: 'Features', href: '#' },
+        { name: 'Games', href: '#' },
+        { name: 'Leaderboard', href: '#' }
+    ],
+    Company: [
+        { name: 'About', href: '#' },
+        { name: 'Blog', href: '#' },
+        { name: 'Careers', href: '#' },
+        { name: 'Press Kit', href: '#' }
+    ],
+    Developers: [
+        { name: 'Smart Contract', href: '#' },
+        { name: 'SDK Docs', href: '#' },
+        { name: 'API Reference', href: '#' },
+        { name: 'GitHub', href: 'https://github.com/ikkii-org' }
+    ],
+    Legal: [
+        { name: 'Terms of Service', href: '#' },
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Cookie Policy', href: '#' }
+    ],
 }
 
 export default function Footer() {
@@ -25,13 +44,15 @@ export default function Footer() {
                         </p>
                         <div style={{ display: 'flex', gap: 10 }}>
                             {[
-                                { icon: <Twitter size={16} />, label: 'Twitter' },
-                                { icon: <Github size={16} />, label: 'GitHub' },
-                                { icon: <Send size={16} />, label: 'Telegram' },
-                            ].map(({ icon, label }) => (
+                                { icon: <Twitter size={16} />, label: 'Twitter', href: '#' },
+                                { icon: <Github size={16} />, label: 'GitHub', href: 'https://github.com/ikkii-org' },
+                                { icon: <Send size={16} />, label: 'Telegram', href: '#' },
+                            ].map(({ icon, label, href }) => (
                                 <motion.a
                                     key={label}
-                                    href="#"
+                                    href={href}
+                                    target={href !== '#' ? "_blank" : undefined}
+                                    rel={href !== '#' ? "noopener noreferrer" : undefined}
                                     whileHover={{ y: -2, background: 'rgba(139,92,246,0.15)', borderColor: 'rgba(139,92,246,0.5)' }}
                                     style={{
                                         width: 36, height: 36, borderRadius: 10,
@@ -53,11 +74,11 @@ export default function Footer() {
                             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 2, color: 'var(--text4)', textTransform: 'uppercase', marginBottom: 18 }}>{cat}</div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                                 {items.map(item => (
-                                    <a key={item} href="#" style={{ fontSize: 14, color: 'var(--text3)', textDecoration: 'none', transition: 'color 0.2s', lineHeight: 1 }}
+                                    <a key={item.name} href={item.href} target={item.href !== '#' ? "_blank" : undefined} rel={item.href !== '#' ? "noopener noreferrer" : undefined} style={{ fontSize: 14, color: 'var(--text3)', textDecoration: 'none', transition: 'color 0.2s', lineHeight: 1 }}
                                         onMouseEnter={e => e.target.style.color = 'var(--primary)'}
                                         onMouseLeave={e => e.target.style.color = 'var(--text3)'}
                                     >
-                                        {item}
+                                        {item.name}
                                     </a>
                                 ))}
                             </div>
