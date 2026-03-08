@@ -53,7 +53,7 @@ export default function Navbar() {
                 <div style={{ maxWidth: 1180, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
                     {/* Logo */}
                     <a href="#" style={{ textDecoration: 'none' }}>
-                        <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 22, fontWeight: 800, color: 'var(--text1)', letterSpacing: -1 }}>
+                        <span style={{ fontFamily: "'Cy Grotesk Grand', sans-serif", fontSize: 22, fontWeight: 700, color: 'var(--text1)', letterSpacing: -1, textTransform: 'uppercase' }}>
                             IKKII
                         </span>
                     </a>

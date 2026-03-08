@@ -46,7 +46,7 @@ export default function Hero() {
                         style={{ display: 'flex', justifyContent: 'center', paddingTop: 40, paddingBottom: 8 }}
                     >
                         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 20 }}>
-                            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 800, color: 'var(--text1)', letterSpacing: -1.5, lineHeight: 1 }}>IKKII</span>
+                            <span style={{ fontFamily: "'Cy Grotesk Grand', sans-serif", fontSize: 'clamp(36px, 5vw, 56px)', fontWeight: 700, color: 'var(--text1)', letterSpacing: -1.5, lineHeight: 1, textTransform: 'uppercase' }}>IKKII</span>
                             <span style={{ color: 'var(--text3)', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 300, lineHeight: 1 }}>×</span>
                             <img src="/sol.svg" alt="Solana" style={{ height: 'clamp(32px, 4.5vw, 50px)', width: 'auto' }} />
                         </div>

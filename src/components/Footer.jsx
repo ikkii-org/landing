@@ -18,7 +18,7 @@ export default function Footer() {
                     {/* Brand column */}
                     <div>
                         <div style={{ marginBottom: 20 }}>
-                            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontSize: 22, fontWeight: 800, color: 'var(--text1)', letterSpacing: -1 }}>IKKII</span>
+                            <span style={{ fontFamily: "'Cy Grotesk Grand', sans-serif", fontSize: 22, fontWeight: 700, color: 'var(--text1)', letterSpacing: -1, textTransform: 'uppercase' }}>IKKII</span>
                         </div>
                         <p style={{ fontSize: 14, color: 'var(--text3)', lineHeight: 1.7, maxWidth: 260, marginBottom: 24 }}>
                             The trustless 1v1 competitive gaming platform on Solana. Wager, play, and win — permissionlessly.
