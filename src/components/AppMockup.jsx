@@ -248,7 +248,7 @@ function LeaderboardScreen() {
 
             <div style={{ flex: 1, overflow: 'hidden', padding: '0 14px', display: 'flex', flexDirection: 'column', gap: 0 }}>
                 {entries.map((e) => (
-                    <div key={e.rank} style={{ display: 'flex', alignItems: 'center', padding: '7px 0', borderBottom: `1px solid ${C.border}`, background: e.isMe ? `${C.purple}12` : 'transparent', margin: '0 -4px', padding: '7px 4px', gap: 8 }}>
+                    <div key={e.rank} style={{ display: 'flex', alignItems: 'center', borderBottom: `1px solid ${C.border}`, background: e.isMe ? `${C.purple}12` : 'transparent', margin: '0 -4px', padding: '7px 4px', gap: 8 }}>
                         <div style={{ width: 22, textAlign: 'center' }}>
                             {e.rank <= 3 ? <span style={{ fontSize: 14 }}>{medals[e.rank - 1]}</span> : <span style={{ fontSize: 10, color: C.textMuted, fontWeight: 700 }}>#{e.rank}</span>}
                         </div>

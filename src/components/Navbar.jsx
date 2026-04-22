@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Sun, Moon } from 'lucide-react'
-import { useTheme } from '../App'
+import { useTheme } from './ThemeProvider'
 
 const links = [
     { label: 'How it Works', href: '#how-it-works' },
@@ -94,8 +94,8 @@ export default function Navbar() {
                             </AnimatePresence>
                         </motion.button>
 
-                        <a href="#cta" className="btn btn-primary" style={{ padding: '10px 22px', fontSize: 14 }}>
-                            Start Dueling
+                        <a href="/survey" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ padding: '10px 22px', fontSize: 14 }}>
+                            Take Survey
                         </a>
                         <button
                             onClick={() => setMobileOpen(v => !v)}
