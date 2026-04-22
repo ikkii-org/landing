@@ -7,6 +7,13 @@ const SURVEY_KEY = 'ikkii-survey-submitted'
 
 const QUESTIONS = [
   {
+    id: 'name',
+    type: 'text',
+    question: "What's your name? (it doesn't have to be your real name)",
+    placeholder: 'Enter a name...',
+    required: true,
+  },
+  {
     id: 'wallets',
     type: 'single',
     question: 'Are you familiar with crypto wallets like Phantom, Backpack, Solflare?',
@@ -47,15 +54,22 @@ const QUESTIONS = [
   {
     id: 'add_games',
     type: 'text',
-    question: 'Any games you would like us to add in the future?',
-    placeholder: 'Tell us what games you want to see...',
+    question: 'What other games should we bring to IKKII?',
+    placeholder: 'Name the games you want to see...',
     required: false,
   },
   {
     id: 'suggestions',
     type: 'text',
-    question: 'Any other suggestions / requests?',
-    placeholder: 'Share anything else on your mind...',
+    question: 'Anything else on your mind?',
+    placeholder: 'Ideas, feedback, requests — drop them here...',
+    required: false,
+  },
+  {
+    id: 'email',
+    type: 'email',
+    question: "Drop your email so we can remind you when IKKII launches (dw we won't disturb you with regular emails)",
+    placeholder: 'your@email.com',
     required: false,
   },
 ]
@@ -66,6 +80,7 @@ export default function SurveyPage() {
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [errors, setErrors] = useState({})
+  const [discordError, setDiscordError] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem(SURVEY_KEY)
@@ -99,16 +114,34 @@ export default function SurveyPage() {
 
   const handleText = (qid, value) => {
     setAnswers(prev => ({ ...prev, [qid]: value }))
-    setErrors(prev => ({ ...prev, [qid]: false }))
+    setErrors(prev => ({ ...prev, [qid]: null }))
   }
 
   const validate = () => {
     const nextErrors = {}
     visibleQuestions.forEach(q => {
+      const val = answers[q.id]
+      // Required check
       if (q.required) {
-        const val = answers[q.id]
         if (!val || (Array.isArray(val) && val.length === 0) || (typeof val === 'string' && val.trim() === '')) {
-          nextErrors[q.id] = true
+          nextErrors[q.id] = 'This question is required.'
+          return
+        }
+      }
+      // Name length check
+      if (q.id === 'name' && val) {
+        const trimmed = val.trim()
+        if (trimmed.length > 50) {
+          nextErrors[q.id] = 'Name must be 50 characters or fewer.'
+          return
+        }
+      }
+      // Email format check (only if provided)
+      if (q.id === 'email' && val && val.trim() !== '') {
+        const basicEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!basicEmail.test(val.trim())) {
+          nextErrors[q.id] = 'Please enter a valid email address.'
+          return
         }
       }
     })
@@ -116,13 +149,78 @@ export default function SurveyPage() {
     return Object.keys(nextErrors).length === 0
   }
 
-  const handleSubmit = () => {
-    if (!validate()) return
+  const sendToDiscord = async (data) => {
+    const fields = [
+      { name: 'Name', value: data.name || 'Not provided', inline: true },
+      { name: 'Wallet Familiarity', value: data.wallets || 'Not answered', inline: true },
+      { name: 'Bet History', value: data.bet || 'Not answered', inline: true },
+    ]
+
+    if (data.bet === 'Yes' && data.bet_type) {
+      fields.push({ name: 'Bet Type', value: data.bet_type, inline: true })
+    }
+
+    if (data.bet_explain) {
+      fields.push({ name: 'Bet Explanation', value: data.bet_explain.slice(0, 1024) })
+    }
+
+    fields.push(
+      { name: 'Interest', value: data.interest || 'Not answered', inline: true },
+      { name: 'Games', value: (data.games || []).join(', ') || 'None selected', inline: false }
+    )
+
+    if (data.add_games) {
+      fields.push({ name: 'Requested Games', value: data.add_games.slice(0, 1024) })
+    }
+
+    if (data.suggestions) {
+      fields.push({ name: 'Suggestions', value: data.suggestions.slice(0, 1024) })
+    }
+
+    if (data.email) {
+      fields.push({ name: 'Email', value: data.email, inline: true })
+    }
+
+    const payload = {
+      content: null,
+      embeds: [{
+        title: '\uD83C\uDFAE New IKKII Beta Survey Response',
+        color: 0x8B5CF6,
+        fields,
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: `Submitted via ${navigator.userAgent.slice(0, 200)}`
+        }
+      }]
+    }
+
+    const res = await fetch('/api/discord', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    return res.ok
+  }
+
+  const handleSubmit = async () => {
+    if (!validate() || submitted) return
+
     const payload = {
       answers,
       submittedAt: new Date().toISOString(),
     }
     localStorage.setItem(SURVEY_KEY, JSON.stringify(payload))
+
+    let discordOk = true
+    try {
+      discordOk = await sendToDiscord(answers)
+    } catch (err) {
+      console.error('Discord webhook failed:', err)
+      discordOk = false
+    }
+
+    setDiscordError(!discordOk)
     setSubmitted(true)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -184,7 +282,7 @@ export default function SurveyPage() {
         <div className="container" style={{ maxWidth: 720 }}>
           <AnimatePresence mode="wait">
             {submitted ? (
-              <SuccessView key="success" />
+              <SuccessView key="success" discordError={discordError} />
             ) : (
               <motion.div
                 key="form"
@@ -385,13 +483,36 @@ export default function SurveyPage() {
                         />
                       )}
 
+                      {q.type === 'email' && (
+                        <input
+                          type="email"
+                          value={answers[q.id] || ''}
+                          onChange={e => handleText(q.id, e.target.value)}
+                          placeholder={q.placeholder}
+                          style={{
+                            width: '100%',
+                            padding: '14px 18px',
+                            borderRadius: 14,
+                            fontSize: 15,
+                            fontFamily: 'inherit',
+                            border: '1.5px solid var(--border-light)',
+                            background: 'var(--bg4)',
+                            color: 'var(--text1)',
+                            outline: 'none',
+                            transition: 'border-color 0.2s',
+                          }}
+                          onFocus={e => e.target.style.borderColor = 'var(--purple)'}
+                          onBlur={e => e.target.style.borderColor = 'var(--border-light)'}
+                        />
+                      )}
+
                       {errors[q.id] && (
                         <motion.p
                           initial={{ opacity: 0, y: -4 }}
                           animate={{ opacity: 1, y: 0 }}
                           style={{ fontSize: 13, color: 'var(--red)', marginTop: 10, fontWeight: 500 }}
                         >
-                          This question is required.
+                          {errors[q.id]}
                         </motion.p>
                       )}
                     </motion.div>
@@ -435,7 +556,7 @@ export default function SurveyPage() {
   )
 }
 
-function SuccessView() {
+function SuccessView({ discordError }) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.95 }}
@@ -460,6 +581,25 @@ function SuccessView() {
       }} />
 
       <div style={{ position: 'relative', zIndex: 1 }}>
+        {discordError && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            style={{
+              background: 'rgba(245,158,11,0.1)',
+              border: '1px solid rgba(245,158,11,0.3)',
+              borderRadius: 12,
+              padding: '12px 18px',
+              marginBottom: 28,
+              fontSize: 14,
+              color: 'var(--gold)',
+              fontWeight: 500,
+              lineHeight: 1.5,
+            }}
+          >
+            We saved your response, but had trouble sending it to our server. Don't worry — we still got it!
+          </motion.div>
+        )}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -495,6 +635,25 @@ function SuccessView() {
         <a href="/" className="btn btn-primary" style={{ fontSize: 15, padding: '14px 32px' }}>
           Back to Home
         </a>
+
+        <button
+          onClick={() => {
+            localStorage.removeItem(SURVEY_KEY)
+            window.location.reload()
+          }}
+          style={{
+            display: 'block',
+            margin: '16px auto 0',
+            background: 'none',
+            border: 'none',
+            color: 'var(--text3)',
+            fontSize: 13,
+            cursor: 'pointer',
+            textDecoration: 'underline',
+          }}
+        >
+          Reset and retake survey
+        </button>
       </div>
     </motion.div>
   )
