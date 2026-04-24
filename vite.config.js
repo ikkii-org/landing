@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-const WEBHOOK_URL = 'https://discord.com/api/webhooks/1496567728956379136/3d3x2hm8ijAHouL3eA-Y9T1Jz2z_xFrxhg22SFm2AYWSvgAUKPT8S7o2SpKttco5dyy4'
+const WEBHOOK_URL = 'https://discord.com/api/webhooks/1496567724522868798/X6X03ILcqBOEWYqzr5YSxNbuusUWldOM9lDAqJgNxm3Jn6FJvpY3liWbXhdnJtzdn3bV'
 
 function discordProxy() {
   return {
